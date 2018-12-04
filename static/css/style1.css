@@ -1,0 +1,79 @@
+
+#posted_msg{
+    display: inline-block;
+    width: 45%;
+}
+#new_msg{
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    margin-left: 5%;
+}
+.main_container{
+    display: inline-block;
+    border: 2px solid darkgray;
+    width: 98%;
+    padding: 10px;
+    margin: 10px;
+    background-color: rgb(229, 238, 250);
+}
+.mes_name{
+    display:inline-block;
+    width: 48%;
+    color:blue;
+    font-weight: bold; 
+    font-size: 20px;
+}
+.com_name{
+    color:blue;
+    font-weight: bold; 
+    font-size: 16px;
+}
+.time{
+    display:inline-block;
+    text-align: right;
+    width: 48%;
+    color: darkgray;
+}
+.cmnt{
+    display:inline-block;
+    width: 80%;
+    background-color: rgb(245, 243, 243);
+    border: 1px solid darkgray;
+    padding: 5px;
+    margin-left: 15%;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.create_cmnt{
+    display: inline-block;
+    width: 80%;
+    margin-left: 15%;
+    margin-top: 10px;
+}
+.delete_btn{
+    display: inline-flex;
+}
+.btn-primary{
+    vertical-align: top;
+    margin-top: 5px;
+}
+.ta_com{
+    width: 70%;
+}
+.message{
+    display: inline-block;
+    width: 90%;
+}
+.form-group{
+    display: inline-block;
+    width: 40%;
+}
+#head{
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+}
+.send_message{
+    margin-top: 3%;
+}

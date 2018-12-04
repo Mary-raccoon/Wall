@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" types="text/css" href="{{ url_for('static', filename='css/style1.css') }}">
+    
+    <title>Simple Wall</title>
+</head>
+<body>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a href="/clear">Log off</a></li>
+        </ol>
+    </nav>
+
+    <h3>Hello {{session["first_name"]}}!!!</h3>
+    
+    <div id="posted_msg">
+        {% for m in messages %}   
+        <div class="main_container">
+            <div class="msg"> 
+                <div class="mes_name">{{ m.first_name }} 
+                </div>
+                <p class="time">{{ m["created_at"] }}</p>
+                {% if m.user_id == session["user_info"] %}
+                    <form action="/delete_msg" method="POST">
+                        <input type="hidden" name="message_id" value="{{ m.id }}">
+                        <input type="submit" value="Delete" class="btn btn-danger btn-block delete_btn">
+                    </form>
+                {% endif %} 
+                <p class="message">"{{ m.message }}"</p>
+            </div>
+            {% for c in comments %}
+            {% if m.id == c.message_id %}
+                <div class="cmnt">
+                    <p class="com_name">{{ c.first_name}} </p>
+                    <p class="comment">{{c.comment}}</p>
+                </div>  
+            {% endif %}
+            {%endfor%}
+            <div class="create_cmnt"> 
+                <form action="/create_comment" method="POST">
+                    <input type="hidden" name="message_id" value="{{ m.id }}"> 
+                    <textarea name="comment" class="ta_com"></textarea>
+                    <input type="submit" value="Comment" class="btn btn-primary">
+                </form>
+            </div>    
+        </div>
+        
+        {% endfor %}
+    </div>  
+    <!-- <h3 id="head">Send a message to:</h3> -->
+    <div id="new_msg">
+        {% for f in friends %}
+            {% if session["user_info"] != f.id %}
+            <div class="send_message">
+                <form action="/create_msg" method="POST">
+                    <input type="hidden" name="friend_id" value="{{ f.id }}">  
+                    <label for="message"> {{ f["first_name"] }} {{ f["last_name"] }} </label> 
+                    <input type="submit" value="Send Message" class="btn btn-primary">
+                    <textarea name="message" placeholder="{{ f["first_name"] }}" id=message cols="30" rows="4" class="form-control"></textarea>
+                </form>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
