@@ -51,9 +51,9 @@
     margin-left: 15%;
     margin-top: 10px;
 }
-.delete_btn{
-    display: inline-flex;
-}
+/* .delete_btn{
+    text-align: center;
+} */
 .btn-primary{
     vertical-align: top;
     margin-top: 5px;

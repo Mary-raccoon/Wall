@@ -102,13 +102,10 @@ def login():
 @app.route("/wall")
 def wall():
     if "user_info" in session:
-        query = "SELECT * FROM users;"
-        friends = mysql.query_db(query)
         messages = mysql.query_db(
             'SELECT messages.message, '
             'messages.id,'
-            'messages.created_at,'
-            'messages.friend_id, '
+            'messages.created_at, ' 
             'messages.user_id, '
             'first_name '
             'FROM messages JOIN users ON messages.user_id = users.id')
@@ -121,7 +118,7 @@ def wall():
             'users.first_name, '
             'users.last_name '
             'FROM comments JOIN users ON comments.user_id = users.id')
-        return render_template('wall.html',friends=friends, messages=messages, comments=comments)
+        return render_template('wall.html', messages=messages, comments=comments)
     else:
         flash("You must login first!", "error")
         return redirect('/')
@@ -131,17 +128,15 @@ def wall():
 def create_msg():
     message = request.form['message']
     user_id = session['user_info']
-    friend_id = request.form['friend_id']
     print(message)
     print(user_id)
     if len(message) > 0:
-        query = "INSERT INTO messages (user_id, message, friend_id, created_at, updated_at) " \
-                "VALUES (%(user_id)s, %(message)s, %(friend_id)s, NOW(), NOW())"
+        query = "INSERT INTO messages (user_id, message, created_at, updated_at) " \
+                "VALUES (%(user_id)s, %(message)s, NOW(), NOW())"
         
         data = {
             'user_id': user_id,
-            'message': message,
-            'friend_id': friend_id
+            'message': message
         }
         print(data)
         mysql.query_db(query, data)

@@ -7,7 +7,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -34,7 +33,7 @@
                 {% if m.user_id == session["user_info"] %}
                     <form action="/delete_msg" method="POST">
                         <input type="hidden" name="message_id" value="{{ m.id }}">
-                        <input type="submit" value="Delete" class="btn btn-danger btn-block delete_btn">
+                        <input type="submit" value="Delete" class="btn btn-danger btn-sm btn-block">
                     </form>
                 {% endif %} 
                 <p class="message">"{{ m.message }}"</p>
@@ -58,20 +57,14 @@
         
         {% endfor %}
     </div>  
-    <!-- <h3 id="head">Send a message to:</h3> -->
+    
     <div id="new_msg">
-        {% for f in friends %}
-            {% if session["user_info"] != f.id %}
             <div class="send_message">
                 <form action="/create_msg" method="POST">
-                    <input type="hidden" name="friend_id" value="{{ f.id }}">  
-                    <label for="message"> {{ f["first_name"] }} {{ f["last_name"] }} </label> 
-                    <input type="submit" value="Send Message" class="btn btn-primary">
-                    <textarea name="message" placeholder="{{ f["first_name"] }}" id=message cols="30" rows="4" class="form-control"></textarea>
+                    <textarea name="message" id=message cols="30" rows="4" class="form-control"></textarea>
+                    <input type="submit" value="Send Message" class="btn btn-block btn-primary" >
                 </form>
             </div>
-            {% endif %}
-        {% endfor %}
     </div>
 </body>
 </html>
